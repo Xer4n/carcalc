@@ -36,3 +36,20 @@ Designed for **quick usage on phones** with a dark, easy-on-the-eyes theme.
 ```bash
 git clone https://github.com/yourusername/mileage-calculator.git
 cd mileage-calculator
+```
+
+2. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+3. Start the app
+
+```bash
+python app.py
+```
+4. Open your browser
+
+```
+http:\\localhost:5000
