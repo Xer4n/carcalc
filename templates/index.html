@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mileage Calculator</title>
+    <style>
+        /* Body */
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #121212;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container card */
+        .card {
+            background: #1c1c1c;
+            width: 95%;
+            max-width: 500px;
+            padding: 32px;
+            border-radius: 16px;
+            border: 1px solid #2a2a2a;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+
+        /* Title */
+        h1 {
+            font-size: 32px;
+            text-align: center;
+            margin-bottom: 28px;
+            color: #f0f0f0;
+        }
+
+        /* Labels */
+        label {
+            font-size: 20px;
+            color: #b0b0b0;
+            margin-top: 20px;
+        }
+
+        /* Inputs */
+        input {
+            width: 100%;
+            padding: 20px;
+            margin-top: 8px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            background: #161616;
+            color: #e0e0e0;
+            font-size: 20px;
+            box-sizing: border-box;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #666;
+        }
+
+        /* Button */
+        button {
+            margin-top: 28px;
+            width: 100%;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 20px;
+            border: 1px solid #333;
+            background: #222;
+            color: #e0e0e0;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+
+        button:hover {
+            background: #2a2a2a;
+        }
+
+        /* Pop-in animation for result */
+        @keyframes popIn {
+            from { opacity: 0; transform: translateY(12px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Result box */
+        .result {
+            margin-top: 28px;
+            padding: 24px;
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            color: #f8f8f8;
+            border-radius: 14px;
+            border: 1px solid #333;
+            animation: popIn 0.35s ease-out;
+            word-break: break-word;
+        }
+
+        /* Error box */
+        .error {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 20px;
+            color: #d36b6b;
+        }
+
+        /* Media query for very small screens */
+        @media (max-width: 360px) {
+            h1 { font-size: 28px; }
+            label { font-size: 18px; }
+            input, button { font-size: 18px; padding: 18px; }
+            .result { font-size: 32px; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>How well did the car do?🚗</h1>
+
+        <form method="post">
+            <label>Kilometers</label>
+            <input type="text" name="kms" required placeholder="Enter kilometers">
+
+            <label>Liters tanked</label>
+            <input type="text" name="fuel" required placeholder="Enter liters">
+
+            <button type="submit">Calculate</button>
+        </form>
+
+        {% if result %}
+            <div class="result" 
+                 style="background: {% if result >= 11.5 %}linear-gradient(135deg, #1b3d2b, #2a5d3f){% else %}linear-gradient(135deg, #3d1b1b, #5d2a2a){% endif %};
+                        color: {% if result >= 11.5 %}#d0f0c0{% else %}#f0c0c0{% endif %};">
+                {{ result }} <span style="font-size:18px; opacity:0.8;">km / liter</span>
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+    </div>
+
+    <!-- Optional: Pop-in animation reset for repeated calculation -->
+    <script>
+        const form = document.querySelector("form");
+        const result = document.querySelector(".result");
+        if (form && result) {
+            form.addEventListener("submit", () => {
+                result.style.animation = "none";
+                result.offsetHeight; // force reflow
+                result.style.animation = "";
+            });
+        }
+    </script>
+</body>
+</html>
