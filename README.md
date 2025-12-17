@@ -52,4 +52,4 @@ python app.py
 4. Open your browser
 
 ```
-http:\\localhost:5000
+http://localhost:5000
